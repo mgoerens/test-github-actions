@@ -50,18 +50,23 @@ jobs:
             - name: Check if automerge ## Simulate "release-checker" script
               working-directory: ./test-github-actions
               id: check_automerge
-              run: out/test-github-actions automerge
+              run: |
+                  AUTOMERGE=$(out/test-github-actions automerge)
+                  echo "automerge=$AUTOMERGE" >> $GITHUB_OUTPUT
+
+            - name: test automerge
+              id: test_automerge
+              if: ${{ steps.check_automerge.outputs.automerge == 'true'}}
+              run: echo "Hello"
 
             - name: Approve PR
               id: approve_pr
-              if: ${{ steps.check_automerge.outputs.updated == 'true'}}
-              uses: hmarr/auto-approve-action@v2
-              with:
-                  github-token: ${{ secrets.GITHUB_TOKEN }}
+              if: ${{ steps.check_automerge.outputs.automerge == 'true'}}
+              uses: hmarr/auto-approve-action@v3
 
             - name: Merge PR
               id: merge_pr
-              if: ${{ steps.check_automerge.outputs.updated == 'true'}}
+              if: ${{ steps.check_automerge.outputs.automerge == 'true'}}
               uses: pascalgn/automerge-action@v0.13.1
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
