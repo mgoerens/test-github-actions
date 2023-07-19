@@ -54,21 +54,16 @@ jobs:
                   AUTOMERGE=$(out/test-github-actions automerge)
                   echo $AUTOMERGE >> $GITHUB_OUTPUT
 
-            - name: Show if automerge
-              working-directory: ./test-github-actions
-              id: show_automerge
-              run: echo ${{ steps.check_automerge.outputs.automerge.automerge }}
-
             - name: Approve PR
               id: approve_pr
-              if: ${{ steps.check_automerge.outputs.automerge == 'true'}}
+              if: ${{ steps.check_automerge.outputs.automerge.automerge == 'true'}}
               uses: hmarr/auto-approve-action@v2
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
 
             - name: Merge PR
               id: merge_pr
-              if: ${{ steps.check_automerge.outputs.automerge == 'true'}}
+              if: ${{ steps.check_automerge.outputs.automerge.automerge == 'true'}}
               uses: pascalgn/automerge-action@v0.13.1
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
