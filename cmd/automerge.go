@@ -29,6 +29,6 @@ func NewAutomergeCmd() *cobra.Command {
 }
 
 func runAutomerge(out io.Writer) error {
-	fmt.Fprint(out, automerge)
+	fmt.Fprintf(out, "automerge=%t", automerge)
 	return nil
 }
