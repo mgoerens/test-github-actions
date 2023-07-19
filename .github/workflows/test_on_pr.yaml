@@ -80,6 +80,6 @@ jobs:
               with:
                 tag_name: v0.0.0
 #                body: ${{ steps.check_version_in_PR.outputs.PR_release_body }}
-                files: test-github-actions/out/test_github_actions.tgz
+                files: $PWD/test-github-actions/out/test_github_actions.tgz
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
