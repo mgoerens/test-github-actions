@@ -50,7 +50,7 @@ jobs:
             - name: Check if automerge ## Simulate "release-checker" script
               working-directory: ./test-github-actions
               id: check_automerge
-              run: out/test-github-actions automerge
+              run: out/test-github-actions automerge >> $GITHUB_OUTPUT
 
             - name: Approve PR
               id: approve_pr
