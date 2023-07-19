@@ -27,19 +27,19 @@ jobs:
                 go-version-file: go.mod
                 
             - name: Ensure Modules
-              working-directory: ./chart-verifier
+              working-directory: ./test-github-actions
               run: make tidy
 
             - name: Ensure Formatting
-              working-directory: ./chart-verifier
+              working-directory: ./test-github-actions
               run: make fmt
 
             - name: Run Linters
-              working-directory: ./chart-verifier
+              working-directory: ./test-github-actions
               run: make lint
 
             - name: Build Binary
-              working-directory: ./chart-verifier
+              working-directory: ./test-github-actions
               run: make bin
 
             ## Run Tests ##
@@ -48,7 +48,7 @@ jobs:
 
 
             - name: Check if automerge ## Simulate "release-checker" script
-              working-directory: ./chart-verifier
+              working-directory: ./test-github-actions
               id: check_automerge
               run: out/test-github-actions automerge
 
