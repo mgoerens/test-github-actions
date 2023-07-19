@@ -59,7 +59,7 @@ jobs:
               id: show_automerge
               run: echo ${{ steps.check_automerge.outputs.automerge }}
 
-            - name: Show if automerge
+            - name: Show if automerge 2
               working-directory: ./test-github-actions
               id: show_automerge2
               run: echo ${{ steps.check_automerge.outputs.automerge.automerge }}
