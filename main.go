@@ -20,4 +20,3 @@ import "github.com/mgoerens/test-github-actions/cmd"
 func main() {
 	cmd.Execute()
 }
-

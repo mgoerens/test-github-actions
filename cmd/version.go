@@ -59,4 +59,3 @@ func runVersion(out io.Writer) error {
 	fmt.Fprintf(out, "test-github-actions v%s <commit: %s>\n", apiversion.GetVersion(), CommitIDLong)
 	return nil
 }
-
