@@ -71,3 +71,14 @@ jobs:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 MERGE_METHOD: squash
                 MERGE_LABELS: ""
+
+            - name: Create the the release
+              id: create_release
+              if: ${{ steps.check_automerge.outputs.automerge == 'true'}}
+              uses: softprops/action-gh-release@v1
+              with:
+#                tag_name: ${{ steps.check_version_in_PR.outputs.PR_version }}
+#                body: ${{ steps.check_version_in_PR.outputs.PR_release_body }}
+                files: out/test_github_actions
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
