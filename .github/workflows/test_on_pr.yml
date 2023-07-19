@@ -59,6 +59,11 @@ jobs:
               id: show_automerge
               run: echo ${{ steps.check_automerge.outputs.automerge }}
 
+            - name: Show if automerge
+              working-directory: ./test-github-actions
+              id: show_automerge2
+              run: echo ${{ steps.check_automerge.outputs.automerge.automerge }}
+
             - name: Approve PR
               id: approve_pr
               if: ${{ steps.check_automerge.outputs.automerge == 'true'}}
