@@ -1,0 +1,70 @@
+name: Build, Test and Release
+
+on:
+    pull_request_target:
+        types: [opened, synchronize, reopened]
+        branches: [ master ]
+
+jobs:
+    build-test-release:
+        name: Build artifacts
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout master branch
+              uses: actions/checkout@v3
+            
+            - name: Checkout PR branch
+              uses: actions/checkout@v3
+              with:
+                ref: ${{ github.event.pull_request.head.ref }}
+                repository: ${{ github.event.pull_request.head.repo.full_name }}
+                path: "test-github-actions"
+
+            - name: Setup Go
+              uses: actions/setup-go@v4
+              with:
+                go-version-file: go.mod
+                
+            - name: Ensure Modules
+              working-directory: ./chart-verifier
+              run: make tidy
+
+            - name: Ensure Formatting
+              working-directory: ./chart-verifier
+              run: make fmt
+
+            - name: Run Linters
+              working-directory: ./chart-verifier
+              run: make lint
+
+            - name: Build Binary
+              working-directory: ./chart-verifier
+              run: make bin
+
+            ## Run Tests ##
+
+
+
+
+            - name: Check if automerge ## Simulate "release-checker" script
+              working-directory: ./chart-verifier
+              id: check_automerge
+              run: out/test-github-actions automerge
+
+            - name: Approve PR
+              id: approve_pr
+              if: ${{ steps.check_automerge.outputs.updated == 'true'}}
+              uses: hmarr/auto-approve-action@v2
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Merge PR
+              id: merge_pr
+              if: ${{ steps.check_automerge.outputs.updated == 'true'}}
+              uses: pascalgn/automerge-action@v0.13.1
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                MERGE_METHOD: squash
+                MERGE_LABELS: ""
+
