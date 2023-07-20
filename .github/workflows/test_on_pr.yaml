@@ -78,8 +78,8 @@ jobs:
               id: master_sha
               run: |
                 git fetch
-                MASTER_SHA = $(git rev-parse master)
-                ORIGIN_MASTER_SHA = $(git rev-parse origin/master)
+                export MASTER_SHA=$(git rev-parse master)
+                export ORIGIN_MASTER_SHA=$(git rev-parse origin/master)
                 echo "master_sha=$MASTER_SHA" >> $GITHUB_OUTPUT
                 echo "origin_master_sha=$ORIGIN_MASTER_SHA" >> $GITHUB_OUTPUT
 
