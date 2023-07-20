@@ -99,7 +99,7 @@ jobs:
               id: tag_version
               uses: mathieudutour/github-tag-action@v6.1
               with:
-                github_token: ${{ secrets.GITHUB_TOKEN }}
+                github_token: ${{ secrets.PAT_MGOERENS }}
                 custom_tag: ${{ steps.get_version.outputs.version }}
                 tag_prefix: ""
                 commit_sha: ${{ steps.master_sha.outputs.origin_master_sha }}
