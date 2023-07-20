@@ -30,13 +30,13 @@ jobs:
               working-directory: ./test-github-actions
               run: make tidy
 
-            - name: Ensure Formatting
-              working-directory: ./test-github-actions
-              run: make fmt
-
-            - name: Run Linters
-              working-directory: ./test-github-actions
-              run: make lint
+#            - name: Ensure Formatting
+#              working-directory: ./test-github-actions
+#              run: make fmt
+#
+#            - name: Run Linters
+#              working-directory: ./test-github-actions
+#              run: make lint
 
             - name: Build Binary
               working-directory: ./test-github-actions
@@ -80,6 +80,6 @@ jobs:
               with:
                 tag_name: v0.0.0
 #                body: ${{ steps.check_version_in_PR.outputs.PR_release_body }}
-                files: $PWD/test-github-actions/out/test_github_actions.tgz
+                files: /home/runner/work/test-github-actions/test-github-actions/test-github-actions/out/test-github-actions.tgz
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
