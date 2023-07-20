@@ -75,7 +75,7 @@ jobs:
                 LOG: "TRACE"  # or "DEBUG"
 
             - name: feedback
-              if: steps.automerge.outputs.mergeResult == "merged"
+              if: ${{ steps.merge_pr.outputs.mergeResult == "merged" }}
               run: |
                 echo "Pull request ${{ steps.merge_pr.outputs.pullRequestNumber }} merged!"
 
