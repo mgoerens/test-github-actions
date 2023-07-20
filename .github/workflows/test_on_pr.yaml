@@ -53,6 +53,13 @@ jobs:
                   AUTOMERGE=$(out/test-github-actions automerge)
                   echo "automerge=$AUTOMERGE" >> $GITHUB_OUTPUT
 
+            - name: get version
+              working-directory: ./test-github-actions
+              id: get_version
+              run: |
+                  VERSION=$(out/test-github-actions version --as-data | jq .version)
+                  echo "version=$VERSION" >> $GITHUB_OUTPUT
+
             - name: create tarball
               id: create_tarball
               working-directory: ./test-github-actions
@@ -93,7 +100,7 @@ jobs:
               uses: mathieudutour/github-tag-action@v6.1
               with:
                 github_token: ${{ secrets.GITHUB_TOKEN }}
-                custom_tag: "test"
+                custom_tag: ${{ steps.get_version.outputs.version }}
                 tag_prefix: ""
                 commit_sha: ${{ steps.master_sha.outputs.origin_master_sha }}
 
