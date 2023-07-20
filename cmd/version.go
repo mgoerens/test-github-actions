@@ -8,8 +8,6 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
-
-	apiversion "github.com/redhat-certification/chart-verifier/pkg/chartverifier/version"
 )
 
 // Print version and commit ID as json blob
@@ -21,7 +19,10 @@ func init() {
 
 // CommitIDLong contains the commit ID the binary was build on. It is populated at build time by ldflags.
 // If you're running from a local debugger it will show an empty commit ID.
-var CommitIDLong string = "unknown"
+var (
+	CommitIDLong string = "unknown"
+	VersionStr   string = "0.0.0"
+)
 
 type VersionContext struct {
 	Version string `json:"version"`
@@ -29,7 +30,7 @@ type VersionContext struct {
 }
 
 var Version = VersionContext{
-	Version: apiversion.GetVersion(),
+	Version: VersionStr,
 	Commit:  CommitIDLong,
 }
 
@@ -56,6 +57,6 @@ func runVersion(out io.Writer) error {
 		return nil
 	}
 
-	fmt.Fprintf(out, "test-github-actions v%s <commit: %s>\n", apiversion.GetVersion(), CommitIDLong)
+	fmt.Fprintf(out, "test-github-actions v%s <commit: %s>\n", Version, CommitIDLong)
 	return nil
 }
