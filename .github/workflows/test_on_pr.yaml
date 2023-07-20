@@ -85,6 +85,7 @@ jobs:
               with:
                 github_token: ${{ secrets.GITHUB_TOKEN }}
                 custom_tag: "test"
+                tag_prefix: ""
 
 #            - name: Create the the release
 #              id: create_release
