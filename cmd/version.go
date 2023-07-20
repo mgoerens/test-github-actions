@@ -21,7 +21,7 @@ func init() {
 // If you're running from a local debugger it will show an empty commit ID.
 var (
 	CommitIDLong string = "unknown"
-	VersionStr   string = "0.0.3"
+	VersionStr   string = "0.0.4"
 )
 
 type VersionContext struct {
