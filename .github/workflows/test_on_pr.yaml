@@ -57,7 +57,7 @@ jobs:
               working-directory: ./test-github-actions
               id: get_version
               run: |
-                  VERSION=$(out/test-github-actions version --as-data | jq .version)
+                  VERSION=$(out/test-github-actions version --as-data | jq -r .version)
                   echo "version=$VERSION" >> $GITHUB_OUTPUT
 
             - name: create tarball
