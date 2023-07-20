@@ -57,7 +57,7 @@ jobs:
               id: create_tarball
               working-directory: ./test-github-actions
               if: ${{ steps.check_automerge.outputs.automerge == 'true'}}
-              run: tar -zcvf out/test-github-actions.tgz out/test-github-actions
+              run: tar -zcvf out/test-github-actions.tgz out/test-github-actions && realpath out/test-github-actions.tgz
 
             - name: Approve PR
               id: approve_pr
