@@ -12,6 +12,8 @@ import (
 // Print version and commit ID as json blob
 var automerge bool = true
 
+// var automerge bool = false
+
 func init() {
 	rootCmd.AddCommand(NewAutomergeCmd())
 }
