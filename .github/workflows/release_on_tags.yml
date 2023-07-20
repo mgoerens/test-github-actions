@@ -33,7 +33,7 @@ jobs:
           tag_name: ${{ steps.get_tag.outputs.RELEASE_VERSION }}
 #          tag_name: ${GITHUB_REF#refs/*/}
 #          body: ${{ steps.check_version_in_PR.outputs.PR_release_body }}
-          files: /home/runner/work/test-github-actions/test-github-actions/test-github-actions/out/test-github-actions.tgz 
+          files: /home/runner/work/test-github-actions/test-github-actions/out/test-github-actions.tgz 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
