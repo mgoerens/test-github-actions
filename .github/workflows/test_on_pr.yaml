@@ -74,10 +74,10 @@ jobs:
                 MERGE_LABELS: ""
                 LOG: "TRACE"  # or "DEBUG"
 
-            - name: feedback
-              if: ${{ steps.merge_pr.outputs.mergeResult == "merged" }}
-              run: |
-                echo "Pull request ${{ steps.merge_pr.outputs.pullRequestNumber }} merged!"
+#            - name: feedback
+#              if: ${{ steps.merge_pr.outputs.mergeResult == "merged" }}
+#              run: |
+#                echo "Pull request ${{ steps.merge_pr.outputs.pullRequestNumber }} merged!"
 
             - name: Bump version and push tag
               id: tag_version
