@@ -1,0 +1,39 @@
+name: create release on new tags
+
+on:
+  workflow_dispatch:
+  push:
+    # Publish semver tags as releases.
+    #tags: [ '*.*.*' ]
+    tags: '[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  build-and-push:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build binary and make tarball
+        id: build_bin
+        run: |
+          make bin
+          tar -zcvf out/test-github-actions.tgz out/test-github-actions && realpath out/test-github-actions.tgz 
+
+      - name: get tag
+        id: get_tag
+        run: |
+          echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
+
+      - name: Create the the release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.get_tag.outputs.RELEASE_VERSION }}
+#          tag_name: ${GITHUB_REF#refs/*/}
+#          body: ${{ steps.check_version_in_PR.outputs.PR_release_body }}
+          files: /home/runner/work/test-github-actions/test-github-actions/out/test-github-actions.tgz 
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
